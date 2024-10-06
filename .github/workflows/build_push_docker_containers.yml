@@ -16,7 +16,7 @@ jobs:
       - name: Log into docker repository
         uses: docker/login-action@v2
         with:
-          registry: docker-registry.serv-wise.com
+          registry: docker-registry.lselortondo.com
           username: ${{ secrets.DOCKER_REPOSITORY_USERNAME }}
           password: ${{ secrets.DOCKER_REPOSITORY_PASSWORD }}
 
