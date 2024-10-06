@@ -1,0 +1,34 @@
+name: Build and push docker containers
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  client:
+    name: Build and push client docker container
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out latest code
+        uses: actions/checkout@v3
+
+      - name: Log into docker repository
+        uses: docker/login-action@v2
+        with:
+          registry: docker-registry.serv-wise.com
+          username: ${{ secrets.DOCKER_REPOSITORY_USERNAME }}
+          password: ${{ secrets.DOCKER_REPOSITORY_PASSWORD }}
+
+      - name: Extract metadata for docker containers
+        uses: docker/metadata-action@v4
+        id: client-metadata
+        with:
+          images: docker-registry.serv-wise.com/aura-of-lasagna
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ steps.client-metadata.outputs.tags }}
+          labels: ${{ steps.client-metadata.outputs.labels }}
