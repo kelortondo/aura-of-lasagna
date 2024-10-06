@@ -24,7 +24,7 @@ jobs:
         uses: docker/metadata-action@v4
         id: client-metadata
         with:
-          images: docker-registry.serv-wise.com/aura-of-lasagna
+          images: docker-registry.lselortondo.com/aura-of-lasagna
 
       - name: Build and push docker image
         uses: docker/build-push-action@v4
